@@ -21,8 +21,59 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  for (let i = 0; i < matrix.length; i++) {
+    const arr = matrix[i];
+    const arrNext;
+    const arrPrev;
+    if (i < matrix.length - 1) {
+      arrNext = matrix[i + 1];
+    }
+
+    if (i > 0) {
+    arrPrev = matrix[i - 1];
+    }
+
+    for (let k = 0; k < arr.length; k++) {
+      if (arr[k] === false) {
+        arr[k] = 0;
+        if (k > 0 && arr[k - 1] === true) {
+          arr[k]++;
+        }
+        if (k < arr.length && arr[k + 1] === true) {
+          arr[k]++;
+        }
+        if (k > 0 && i < matrix.length - 1 && arrNext[k - 1] === true) {
+          arr[k]++;
+        }
+        if (k < arr.length && i < matrix.length - 1 && arrNext[k + 1] === true) {
+          arr[k]++;
+        }
+        if (arrNext[k] === true) {
+          arr[k]++;
+        }
+        if (k > 0 && i > 0 && arrPrev[k - 1] === true) {
+          arr[k]++;
+        }
+        if (k < arr.length && i > 0 && arrPrev[k + 1] === true) {
+          arr[k]++;
+        }
+        if (i > 0 && arrPrev[k] === true) {
+          arr[k]++;
+        }
+      }
+    }
+  }
+
+  for (let m = 0; m < matrix.length; m++) {
+    const arra = matrix[m];
+    for (let n = 0; n < arra.length; n++) {
+      if (arra[n] === true) {
+        arra[n] = 1;
+      }
+    }
+  }
+  return matrix;
 }
 
 module.exports = minesweeper;
